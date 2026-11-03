@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Management</title>
+</head>
+<body>
+
+    <h2>Clinic Appointment Management</h2>
+
+    <p>Select an appointment status to filter the list:</p>
+
+    <label for="status">Appointment Status:</label>
+
+    <select id="status" onchange="filterAppointments()">
+        <option value="All">All Appointments</option>
+        <option value="Scheduled">Scheduled</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <h3>Appointments</h3>
+
+    <table border="1" cellpadding="10" id="appointmentTable">
+        <tr>
+            <th>Patient Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+
+        <tr class="appointment">
+            <td>John Smith</td>
+            <td>November 5, 2026</td>
+            <td>09:00 AM</td>
+            <td>Scheduled</td>
+        </tr>
+
+        <tr class="appointment">
+            <td>Sarah Johnson</td>
+            <td>November 6, 2026</td>
+            <td>10:30 AM</td>
+            <td>Cancelled</td>
+        </tr>
+
+        <tr class="appointment">
+            <td>Michael Brown</td>
+            <td>November 7, 2026</td>
+            <td>02:00 PM</td>
+            <td>Completed</td>
+        </tr>
+
+        <tr class="appointment">
+            <td>Emily Davis</td>
+            <td>November 8, 2026</td>
+            <td>11:00 AM</td>
+            <td>Scheduled</td>
+        </tr>
+
+    </table>
+
+    <p id="message"></p>
+
+    <script>
+        function filterAppointments() {
+
+            var selectedStatus = document.getElementById("status").value;
+            var appointments = document.getElementsByClassName("appointment");
+            var found = 0;
+
+            for (var i = 0; i < appointments.length; i++) {
+
+                var status = appointments[i].cells[3].innerText;
+
+                if (selectedStatus === "All" || status === selectedStatus) {
+                    appointments[i].style.display = "";
+                    found++;
+                } else {
+                    appointments[i].style.display = "none";
+                }
+            }
+
+            if (found === 0) {
+                document.getElementById("message").innerText =
+                    "No appointments found with this status.";
+            } else {
+                document.getElementById("message").innerText =
+                    found + " appointment(s) found.";
+            }
+        }
+    </script>
+
+</body>
+</html>
